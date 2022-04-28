@@ -15,6 +15,12 @@ class Sensor:
     topic_name = None
     value = None
 
+    monitor = None
+    min_target = None
+    max_target = None
+
+    monitor_types = ["temperature", "humidity", "speed"]
+
     """
     TODO:
     deve monitorar (temperatura, umidade ou velocidade)
@@ -23,13 +29,25 @@ class Sensor:
     ao atingir valor deve se enviar
     """
 
-    def __init__(self, name=None, topic_name=None):
+    def __init__(self, name=None, topic_name=None, monitor=None, min_target=None, max_target=None):
         if name is None:
             name = f"Sensor:{random.randint(0,9999)}"
 
         if topic_name is None:
             topic_name = "default"
 
+        if monitor is None or monitor not in self.monitor_types:
+            monitor = random.choice(self.monitor_types)
+
+        if min_target is None:
+            min_target = random.randint(0, 9999)
+
+        if max_target is None or max_target < min_target:
+            max_target = random.randint(min_target, min_target + 9999)
+
+        self.min_target = min_target
+        self.max_target = max_target
+        self.monitor =monitor
         self.name = name
         self.value = random.randint(0, 400)
         self.topic_name = topic_name

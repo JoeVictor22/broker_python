@@ -1,4 +1,5 @@
 from queue import Queue
+from typing import List
 
 import Pyro4
 
@@ -21,6 +22,9 @@ class Servidor(object):
 
     def _get_topic(self, topic_name) -> Queue:
         return self.topics.get(topic_name, None)
+
+    def get_topics(self) -> List[str]:
+        return [key for key in self.topics]
 
     def create_topic(self, topic_name) -> bool:
         if topic_name in self.topics:
