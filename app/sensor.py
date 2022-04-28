@@ -29,7 +29,9 @@ class Sensor:
     ao atingir valor deve se enviar
     """
 
-    def __init__(self, name=None, topic_name=None, monitor=None, min_target=None, max_target=None):
+    def __init__(
+        self, name=None, topic_name=None, monitor=None, min_target=None, max_target=None
+    ):
         if name is None:
             name = f"Sensor:{random.randint(0,9999)}"
 
@@ -47,7 +49,7 @@ class Sensor:
 
         self.min_target = min_target
         self.max_target = max_target
-        self.monitor =monitor
+        self.monitor = monitor
         self.name = name
         self.value = random.randint(0, 400)
         self.topic_name = topic_name
