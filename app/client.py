@@ -12,25 +12,23 @@ class Client:
     logger = None
 
     name = None
-    topic_name = None
+    topics = None
 
     """
     TODO:
+    trabalhar com lista de topicos ao inves de topico fixo
     listar topicos
     assinar mais de um topico
     mostrar quais  mensagens chegaram
     """
 
-    def __init__(self, name=None, topic_name=None):
+    def __init__(self, name=None):
         if name is None:
             name = f"Cliente:{random.randint(0,9999)}"
 
-        if topic_name is None:
-            topic_name = "default"
-
+        self.topics = list()
         self.name = name
         self.value = random.randint(0, 400)
-        self.topic_name = topic_name
         self.broker = Pyro4.core.Proxy(PYRO_URL)
         self.logger = log_config()
 
@@ -41,8 +39,9 @@ class Client:
         while True:
             time.sleep(1)
 
-            message = self.broker.subscribe(self.topic_name)
-            print(f"Recebido - Topico: {self.topic_name}, Message: {message}")
+            for topic in self.topics:
+                message = self.broker.subscribe(topic)
+                print(f"Recebido - Topico: {topic}, Message: {message}")
 
     def create_gui(self):
         self.logger.info("Iniciando interface")
