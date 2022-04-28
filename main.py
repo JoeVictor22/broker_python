@@ -6,13 +6,13 @@ if __name__ == "__main__":
         try:
             p._pyroBind()
 
-            from app.client import Client
-            from app.sensor import Sensor
 
 
             choice = input("Digite: \n1 (para criar um cliente)\n2 (para criar um sensor)\n")
 
             if choice == "1":
+                from app.client import Client
+
                 print("Criando Cliente")
                 name = input("Digite o nome (vazio para gerar aleatorio)\n")
                 topic = input("Digite o tópico (vazio para gerar aleatorio)\n")
@@ -26,6 +26,7 @@ if __name__ == "__main__":
                 cliente.start()
 
             elif choice == "2":
+
                 print("Criando Sensor")
                 name = input("Digite o nome (vazio para gerar aleatorio)\n")
                 topic = input("Digite o tópico (vazio para gerar aleatorio)\n")
@@ -35,6 +36,7 @@ if __name__ == "__main__":
                 if topic == "":
                     topic = None
 
+                from app.sensor import Sensor
                 sensor = Sensor(name=name, topic_name=topic)
                 sensor.start()
             else:

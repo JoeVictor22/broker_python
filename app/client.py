@@ -14,6 +14,7 @@ class Client:
     name = None
     topic_name = None
 
+
     '''
     TODO:
     listar topicos
@@ -46,4 +47,3 @@ class Client:
 
     def create_gui(self):
         self.logger.info("Iniciando interface")
-
