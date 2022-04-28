@@ -15,14 +15,13 @@ class Sensor:
     topic_name = None
     value = None
 
-    '''
+    """
     TODO:
     deve monitorar (temperatura, umidade ou velocidade)
     deve modificar valor atual da leitura
     deve ser possivel minimo e máximo qlqr hora
     ao atingir valor deve se enviar
-    '''
-
+    """
 
     def __init__(self, name=None, topic_name=None):
         if name is None:
@@ -44,11 +43,11 @@ class Sensor:
         while True:
             time.sleep(1)
             self.value = random.randint(0, 400)
-            message = f"Producer: {self.name}, Topic: {self.topic_name}, Value: {self.value}"
+            message = (
+                f"Producer: {self.name}, Topic: {self.topic_name}, Value: {self.value}"
+            )
             self.broker.publish(self.topic_name, message)
             print(f"Enviado: {message}")
 
-
     def create_gui(self):
         self.logger.info("Iniciando interface")
-

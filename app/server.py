@@ -9,13 +9,14 @@ logger = log_config()
 
 @Pyro4.expose
 class Servidor(object):
-    '''
+    """
 
     topics structure:
     {
         "key": list()
     }
-    '''
+    """
+
     topics = {}
 
     def _get_topic(self, topic_name) -> Queue:
@@ -58,6 +59,7 @@ class Servidor(object):
         print(f"get {message}")
 
         return message
+
 
 def start_server():
     Pyro4.Daemon.serveSimple(
