@@ -15,6 +15,15 @@ class Sensor:
     topic_name = None
     value = None
 
+    '''
+    TODO:
+    deve monitorar (temperatura, umidade ou velocidade)
+    deve modificar valor atual da leitura
+    deve ser possivel minimo e máximo qlqr hora
+    ao atingir valor deve se enviar
+    '''
+
+
     def __init__(self, name=None, topic_name=None):
         if name is None:
             name = f"Sensor:{random.randint(0,9999)}"
