@@ -14,6 +14,13 @@ class Client:
     name = None
     topic_name = None
 
+    '''
+    TODO:
+    listar topicos
+    assinar mais de um topico
+    mostrar quais  mensagens chegaram
+    '''
+
     def __init__(self, name=None, topic_name=None):
         if name is None:
             name = f"Cliente:{random.randint(0,9999)}"
