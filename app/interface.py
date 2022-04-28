@@ -2,7 +2,7 @@ import tkinter as tk
 
 # WINDOW = tk.Tk()
 
-
+#https://python-course.eu/tkinter/bulls-and-cows-mastermind-in-tkinter.php
 limite = 200
 
 def show_values():
