@@ -1,28 +1,51 @@
+import random
 import tkinter as tk
-
-# WINDOW = tk.Tk()
-
-# https://python-course.eu/tkinter/bulls-and-cows-mastermind-in-tkinter.php
-limite = 200
+from pprint import pprint
 
 
-def show_values():
+def select_choice():
+    global choose
+    pprint(choose.)
 
-    limite = input.get()
+def create_choices():
+    global topics, choose
+    choose = []
+    topics = get_topics()
 
-    print(f"{w.get()}, {input.get()}")
+    row = 3
+    col = 0
+    for value in topics:
+        var = tk.IntVar()
+        choose.append(var)
+        c = tk.Checkbutton(master, text=value, variable=var, onvalue=1, offvalue=0, command=select_choice)
 
+        if col == 4:
+            row += 1
+            col = 0
 
+        c.grid(row=row, column=col, columnspan=1)
+        col+=1
+
+def get_topics():
+    topics = []
+    for _ in range(random.randint(0,15)):
+        topics.append(f"option_{random.randint(0,9999)}")
+
+    return topics
+
+topics = get_topics()
+choose = []
 master = tk.Tk()
-w = tk.Scale(
-    master, from_=0, to=limite, length=600, tickinterval=10, orient=tk.HORIZONTAL
-)
-w.pack()
-label = tk.Label(master, text="Valor")
-label.pack(side=tk.LEFT)
-input = tk.Entry(master, bd=5)
-input.pack(side=tk.RIGHT)
 
-tk.Button(master, text="Show", command=show_values).pack()
+create_choices()
+button_reset = tk.Button(master, text="Resetar", command=create_choices,bd=5)
+button_reset.grid(row=0, column=0, columnspan=3)
 
 tk.mainloop()
+
+
+
+
+
+
+
