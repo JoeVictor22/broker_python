@@ -24,7 +24,7 @@ if __name__ == "__main__":
                     topic = None
 
                 cliente = Client(name=name)
-                from app.interface import start
+                from app.client_interface import start
 
                 start(cliente)
 
