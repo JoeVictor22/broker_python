@@ -23,10 +23,10 @@ class Sensor:
 
     """
     TODO:
-    deve monitorar (temperatura, umidade ou velocidade)
-    deve modificar valor atual da leitura
-    deve ser possivel minimo e máximo qlqr hora
-    ao atingir valor deve se enviar
+    deve monitorar (temperatura, umidade ou velocidade) # select
+    deve modificar valor atual da leitura # input
+    deve ser possivel minimo e máximo qlqr hora # input
+    ao atingir valor deve se enviar # mostrar valor atual
     """
 
     def __init__(
