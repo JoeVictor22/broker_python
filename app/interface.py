@@ -1,4 +1,3 @@
-import random
 import tkinter as tk
 from pprint import pprint
 
@@ -12,7 +11,6 @@ def select_choice():
 def create_choices():
     global topics, choose
     choose = []
-    topics = get_topics()
 
     row = OPTIONS_ROW
     col = 0
@@ -28,35 +26,39 @@ def create_choices():
         c.grid(row=row, column=col, columnspan=1)
         col+=1
 
-def get_topics():
-    topics = []
-    for _ in range(random.randint(0,15)):
-        topics.append(f"option_{random.randint(0,9999)}")
-
-    return topics
 
 OPTIONS_ROW = 5
 TEXT_COL = 4
-topics = get_topics()
+topics = []
 choose = []
 master = tk.Tk()
+client = None
+def start(cliente):
+    global client, topics
+    client = cliente
+    topics = client.broker_topics
+    print(topics)
+    create_choices()
 
-create_choices()
-button_reset = tk.Button(master, text="Resetar tópicos", command=create_choices,bd=5)
-button_reset.grid(row=0, column=TEXT_COL+1, columnspan=1)
+    button_reset = tk.Button(master, text="Resetar tópicos", command=create_choices,bd=5)
+    button_reset.grid(row=0, column=TEXT_COL+1, columnspan=1)
 
+    text_box = tk.Text(
+        master,
+        height=12,
+        width=40
+    )
+    message = "asdasdasd"
+    text_box.grid(row = 0, column=0, columnspan=TEXT_COL, rowspan=OPTIONS_ROW)
+    text_box.insert('end', message)
+    text_box.config(state='disabled')
 
-text_box = tk.Text(
-    master,
-    height=12,
-    width=40
-)
-message = "oaskdoakjgpaojapofhjkasdpokspf ohgklsdjh pokhpofjh oaskdoakjgpaojapofhjkasdpokspf ohgklsdjh pokhpofjh "
-text_box.grid(row = 0, column=0, columnspan=TEXT_COL, rowspan=OPTIONS_ROW)
-text_box.insert('end', message)
-text_box.config(state='disabled')
+    while(True):
+        topics = client.broker_topics
+        client.update()
+        master.update()
+        client.set_topics(choose)
 
-tk.mainloop()
 
 
 

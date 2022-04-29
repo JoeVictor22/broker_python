@@ -23,8 +23,9 @@ if __name__ == "__main__":
                 if topic == "":
                     topic = None
 
-                cliente = Client(name=name, topic_name=topic)
-                cliente.start()
+                cliente = Client(name=name)
+                from app.interface import start
+                start(cliente)
 
             elif choice == "2":
 
