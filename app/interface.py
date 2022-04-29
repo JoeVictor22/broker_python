@@ -8,6 +8,7 @@ def select_choice():
 
         pprint(op.get())
 
+
 def create_choices():
     global topics, choose
     choose = []
@@ -17,14 +18,21 @@ def create_choices():
     for value in topics:
         var = tk.BooleanVar()
         choose.append(var)
-        c = tk.Checkbutton(master, text=value, variable=var, onvalue=1, offvalue=0, command=select_choice)
+        c = tk.Checkbutton(
+            master,
+            text=value,
+            variable=var,
+            onvalue=1,
+            offvalue=0,
+            command=select_choice,
+        )
 
         if col == 4:
             row += 1
             col = 0
 
         c.grid(row=row, column=col, columnspan=1)
-        col+=1
+        col += 1
 
 
 OPTIONS_ROW = 5
@@ -33,6 +41,8 @@ topics = []
 choose = []
 master = tk.Tk()
 client = None
+
+
 def start(cliente):
     global client, topics
     client = cliente
@@ -40,29 +50,19 @@ def start(cliente):
     print(topics)
     create_choices()
 
-    button_reset = tk.Button(master, text="Resetar tópicos", command=create_choices,bd=5)
-    button_reset.grid(row=0, column=TEXT_COL+1, columnspan=1)
-
-    text_box = tk.Text(
-        master,
-        height=12,
-        width=40
+    button_reset = tk.Button(
+        master, text="Resetar tópicos", command=create_choices, bd=5
     )
-    message = "asdasdasd"
-    text_box.grid(row = 0, column=0, columnspan=TEXT_COL, rowspan=OPTIONS_ROW)
-    text_box.insert('end', message)
-    text_box.config(state='disabled')
+    button_reset.grid(row=0, column=TEXT_COL + 1, columnspan=1)
 
-    while(True):
+    text_box = tk.Text(master, height=12, width=40)
+    message = "asdasdasd"
+    text_box.grid(row=0, column=0, columnspan=TEXT_COL, rowspan=OPTIONS_ROW)
+    text_box.insert("end", message)
+    text_box.config(state="disabled")
+
+    while True:
         topics = client.broker_topics
         client.update()
         master.update()
         client.set_topics(choose)
-
-
-
-
-
-
-
-

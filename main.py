@@ -25,6 +25,7 @@ if __name__ == "__main__":
 
                 cliente = Client(name=name)
                 from app.interface import start
+
                 start(cliente)
 
             elif choice == "2":
