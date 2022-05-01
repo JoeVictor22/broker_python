@@ -41,13 +41,21 @@ topics = []
 choose = []
 master = tk.Tk()
 client = None
+buffer = []
+# message_len = 3
+
+def create_message(messages):
+    final_txt = ""
+    for idx, message in enumerate(messages):
+        final_txt += f"{message}\n"
+    return final_txt
+
 
 
 def start(cliente):
-    global client, topics
+    global client, topics, buffer
     client = cliente
     topics = client.broker_topics
-    print(topics)
     create_choices()
 
     button_reset = tk.Button(
@@ -56,13 +64,15 @@ def start(cliente):
     button_reset.grid(row=0, column=TEXT_COL + 1, columnspan=1)
 
     text_box = tk.Text(master, height=12, width=40)
-    message = "asdasdasd"
     text_box.grid(row=0, column=0, columnspan=TEXT_COL, rowspan=OPTIONS_ROW)
-    text_box.insert("end", message)
-    text_box.config(state="disabled")
+
+    def set_text(buffer):
+        text_box.delete(1.0, "end")
+        text_box.insert("end", create_message(buffer))
 
     while True:
         topics = client.broker_topics
         client.update()
         master.update()
         client.set_topics(choose)
+        set_text(cliente.buffer)

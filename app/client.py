@@ -14,6 +14,7 @@ class Client:
     name = None
     topics = None
     broker_topics = None
+    buffer = None
     """
     TODO:
     trabalhar com lista de topicos ao inves de topico fixo
@@ -26,6 +27,8 @@ class Client:
         if name is None:
             name = f"Cliente:{random.randint(0,9999)}"
 
+        self.buffer = list()
+        self.insert_message("Iniciando cliente")
         self.topics = list()
         self.name = name
         self.value = random.randint(0, 400)
@@ -38,7 +41,18 @@ class Client:
 
     def update(self):
         self.broker_topics = self.broker.get_topics()
-        print(f"a {self.broker_topics}")
         for topic in self.topics:
             message = self.broker.subscribe(topic)
-            print(f"Recebido - Topico: {topic}, Message: {message}")
+            if message and message != "":
+                message = f"{topic} - {message}"
+                self.insert_message(message)
+
+    def insert_message(self, message):
+        message = self.format_message(str(message))
+        self.buffer.append(message)
+
+    @staticmethod
+    def format_message(message):
+        from datetime import datetime
+        time = datetime.now().strftime("%H:%M:%S")
+        return f"[{time}] - {message}"
