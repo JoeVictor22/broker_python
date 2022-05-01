@@ -44,12 +44,12 @@ client = None
 buffer = []
 # message_len = 3
 
+
 def create_message(messages):
     final_txt = ""
     for idx, message in enumerate(messages):
         final_txt += f"{message}\n"
     return final_txt
-
 
 
 def start(cliente):

@@ -54,5 +54,6 @@ class Client:
     @staticmethod
     def format_message(message):
         from datetime import datetime
+
         time = datetime.now().strftime("%H:%M:%S")
         return f"[{time}] - {message}"
