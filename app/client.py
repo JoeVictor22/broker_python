@@ -1,5 +1,4 @@
 import random
-import time
 
 import Pyro4
 
@@ -41,6 +40,7 @@ class Client:
 
     def update(self):
         self.broker_topics = self.broker.get_topics()
+        self.topics = ["default"]
         for topic in self.topics:
             message = self.broker.subscribe(topic)
             if message and message != "":
@@ -48,6 +48,7 @@ class Client:
                 self.insert_message(message)
 
     def insert_message(self, message):
+        print(f"{message}")
         message = self.format_message(str(message))
         self.buffer.append(message)
 

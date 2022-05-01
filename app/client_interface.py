@@ -1,3 +1,4 @@
+import time
 import tkinter as tk
 from pprint import pprint
 
@@ -47,7 +48,8 @@ buffer = []
 
 def create_message(messages):
     final_txt = ""
-    for idx, message in enumerate(messages):
+
+    for message in messages[:5]:
         final_txt += f"{message}\n"
     return final_txt
 
@@ -66,13 +68,15 @@ def start(cliente):
     text_box = tk.Text(master, height=12, width=40)
     text_box.grid(row=0, column=0, columnspan=TEXT_COL, rowspan=OPTIONS_ROW)
 
-    def set_text(buffer):
+    def set_text(message):
         text_box.delete(1.0, "end")
-        text_box.insert("end", create_message(buffer))
+        text_box.insert("end", message)
 
     while True:
         topics = client.broker_topics
         client.update()
         master.update()
         client.set_topics(choose)
-        set_text(cliente.buffer)
+        set_text(create_message(cliente.buffer[-5:]))
+        # set_text(cliente.buffer[-1])
+        print(cliente.buffer[-1])
