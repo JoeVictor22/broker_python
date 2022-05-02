@@ -35,17 +35,17 @@ class Sensor:
 
     def __init__(self, name=None, topic_name=None, monitor=None):
         if name is None:
-            name = f"Sensor:{random.randint(0,9999)}"
+            name = f"Sensor:{random.randint(1000,9999)}"
 
         if topic_name is None:
             topic_name = "default"
 
-        if monitor is None or monitor not in self.monitor_types:
-            monitor = random.choice(self.monitor_types)
+        if monitor is None or monitor > len(self.monitor_types):
+            monitor = random.randint(1,3)
 
         self.min_target = 0
         self.max_target = 10
-        self.monitor = monitor
+        self.monitor = monitor-1
         self.name = name
         self.value = 0
         self.topic_name = topic_name
@@ -74,14 +74,13 @@ class Sensor:
                 )
 
             message = (
-                f"Producer: {self.name}, Topic: {self.topic_name}, Value: {self.value}"
+                f"Producer: {self.name}, Topic: {self.topic_name}, Parameter: {self.monitor_types[self.monitor]}, Value: {self.value}"
             )
 
             if self.value >= self.max_target or self.value <= self.min_target:
                 self.calls += 1
                 self.broker.publish(self.topic_name, message)
                 self.insert_message(message)
-
 
     def insert_message(self, message):
         message = self.format_message(str(message))

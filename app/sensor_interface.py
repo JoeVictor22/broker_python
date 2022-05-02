@@ -6,6 +6,7 @@ sensor = None
 
 buffer_len = 25
 
+
 def create_message(messages):
     final_txt = ""
 
@@ -137,7 +138,6 @@ def start(sensor_alvo):
     def set_text(message):
         text_box.delete(1.0, "end")
         text_box.insert("end", message)
-
 
     while True:
         update_labels()

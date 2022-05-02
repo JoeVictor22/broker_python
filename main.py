@@ -34,13 +34,22 @@ if __name__ == "__main__":
                 print("Criando Sensor")
                 name = input("Digite o nome (vazio para gerar aleatorio)\n")
                 topic = input("Digite o tópico (vazio para gerar aleatorio)\n")
+                monitor = input("Escolha o parâmetro (digite o número) \n"
+                                "1 - Temperatura\n"
+                                "2 - Umidade\n"
+                                "3 - Velocidade\n"
+                                "(vazio para gerar aleatorio)\n")
+
 
                 if name == "":
                     name = None
                 if topic == "":
                     topic = None
+                if monitor == "" or monitor.isdigit():
+                    monitor = None
 
-                sensor = Sensor(name=name)
+
+                sensor = Sensor(name=name, topic_name=topic, monitor=monitor)
                 from app.sensor_interface import start
 
                 start(sensor)

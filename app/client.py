@@ -15,7 +15,7 @@ class Client:
 
     def __init__(self, name=None):
         if name is None:
-            name = f"Cliente:{random.randint(0,9999)}"
+            name = f"Cliente:{random.randint(1000,9999)}"
 
         self.buffer = list()
         self.insert_message("Iniciando cliente")

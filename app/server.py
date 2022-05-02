@@ -52,7 +52,7 @@ class Servidor(object):
             return ""
 
         if queue.empty():
-            return ""
+             return ""
 
         message = queue.get()
         print(f"get {message}")
