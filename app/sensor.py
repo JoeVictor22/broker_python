@@ -41,11 +41,11 @@ class Sensor:
             topic_name = "default"
 
         if monitor is None or monitor > len(self.monitor_types):
-            monitor = random.randint(1,3)
+            monitor = random.randint(1, 3)
 
         self.min_target = 0
         self.max_target = 10
-        self.monitor = monitor-1
+        self.monitor = monitor - 1
         self.name = name
         self.value = 0
         self.topic_name = topic_name
@@ -73,9 +73,7 @@ class Sensor:
                     self.max_target + self.max_target,
                 )
 
-            message = (
-                f"Producer: {self.name}, Topic: {self.topic_name}, Parameter: {self.monitor_types[self.monitor]}, Value: {self.value}"
-            )
+            message = f"Producer: {self.name}, Topic: {self.topic_name}, Parameter: {self.monitor_types[self.monitor]}, Value: {self.value}"
 
             if self.value >= self.max_target or self.value <= self.min_target:
                 self.calls += 1
