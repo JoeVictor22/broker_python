@@ -1,21 +1,14 @@
-import time
 import tkinter as tk
-from pprint import pprint
-
 
 def select_choice():
-    global choose
-    for op in choose:
-
-        pprint(op.get())
-
+    pass
 
 def create_choices():
     global topics, choose
     choose = []
 
     row = OPTIONS_ROW
-    col = 0
+    col = 1
     for value in topics:
         var = tk.BooleanVar()
         choose.append(var)
@@ -28,28 +21,28 @@ def create_choices():
             command=select_choice,
         )
 
-        if col == 4:
+        if col == 7:
             row += 1
-            col = 0
+            col = 1
 
         c.grid(row=row, column=col, columnspan=1)
         col += 1
 
 
 OPTIONS_ROW = 5
-TEXT_COL = 4
+TEXT_COL = 10
 topics = []
 choose = []
 master = tk.Tk()
 client = None
 buffer = []
-# message_len = 3
+buffer_len = 50
 
 
 def create_message(messages):
     final_txt = ""
 
-    for message in messages[:5]:
+    for message in messages:
         final_txt += f"{message}\n"
     return final_txt
 
@@ -61,11 +54,11 @@ def start(cliente):
     create_choices()
 
     button_reset = tk.Button(
-        master, text="Resetar tópicos", command=create_choices, bd=5
+        master, text="Limpar tópicos", command=create_choices, bd=3
     )
-    button_reset.grid(row=0, column=TEXT_COL + 1, columnspan=1)
+    button_reset.grid(row=OPTIONS_ROW, column=0, columnspan=1)
 
-    text_box = tk.Text(master, height=12, width=40)
+    text_box = tk.Text(master, height=50, width=100)
     text_box.grid(row=0, column=0, columnspan=TEXT_COL, rowspan=OPTIONS_ROW)
 
     def set_text(message):
@@ -76,7 +69,5 @@ def start(cliente):
         topics = client.broker_topics
         client.update()
         master.update()
-        client.set_topics(choose)
-        set_text(create_message(cliente.buffer[-5:]))
-        # set_text(cliente.buffer[-1])
-        print(cliente.buffer[-1])
+        client.set_topics([topics[idx] for idx, _ in enumerate(choose) if choose[idx].get()])
+        set_text(create_message(cliente.buffer[-buffer_len:]))
