@@ -32,9 +32,7 @@ class Sensor:
     ao atingir valor deve se enviar # mostrar valor atual
     """
 
-    def __init__(
-        self, name=None, topic_name=None, monitor=None
-    ):
+    def __init__(self, name=None, topic_name=None, monitor=None):
         if name is None:
             name = f"Sensor:{random.randint(0,9999)}"
 
@@ -56,7 +54,6 @@ class Sensor:
         self.calls = 0
         self.active = False
 
-
     def set_min(self, val):
         if val <= self.max_target:
             self.min_target = val
@@ -69,7 +66,10 @@ class Sensor:
         time.sleep(0.16)
         if self.active:
             if self.random:
-                self.value = random.randint(self.min_target-(self.min_target*2), self.max_target + self.max_target)
+                self.value = random.randint(
+                    self.min_target - (self.min_target * 2),
+                    self.max_target + self.max_target,
+                )
 
             message = (
                 f"Producer: {self.name}, Topic: {self.topic_name}, Value: {self.value}"
@@ -79,4 +79,3 @@ class Sensor:
                 self.calls += 1
                 self.broker.publish(self.topic_name, message)
                 print(f"Enviado: {message}")
-

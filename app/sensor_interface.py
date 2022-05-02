@@ -41,7 +41,15 @@ def start(sensor_alvo):
         sensor.random = not sensor.random
         update_labels()
 
-    min_lim,max_lim,value,n_calls, random, active = tk.StringVar(), tk.StringVar(), tk.StringVar(), tk.StringVar(), tk.StringVar(), tk.StringVar()
+    min_lim, max_lim, value, n_calls, random, active = (
+        tk.StringVar(),
+        tk.StringVar(),
+        tk.StringVar(),
+        tk.StringVar(),
+        tk.StringVar(),
+        tk.StringVar(),
+    )
+
     def update_labels():
         min_lim.set(f"Minimo: {sensor.min_target}")
         max_lim.set(f"Máximo: {sensor.max_target}")
@@ -55,76 +63,64 @@ def start(sensor_alvo):
     idx = 0
     # input min
     label1 = tk.Label(master, textvariable=min_lim)
-    label1.config(font=('helvetica', 10))
+    label1.config(font=("helvetica", 10))
     label1.grid(row=0, column=idx, columnspan=1)
     # grid
     entry1 = tk.Entry(master)
     entry1.grid(row=1, column=idx, columnspan=1)
-    #grid
-    submit1 = tk.Button(
-        master, text="Aceitar", command=set_min, bd=3
-    )
+    # grid
+    submit1 = tk.Button(master, text="Aceitar", command=set_min, bd=3)
     submit1.grid(row=2, column=idx, columnspan=1)
 
-    idx+=1
+    idx += 1
     # input max
     label2 = tk.Label(master, textvariable=max_lim)
-    label2.config(font=('helvetica', 10))
+    label2.config(font=("helvetica", 10))
     label2.grid(row=0, column=idx, columnspan=1)
     # grid
     entry2 = tk.Entry(master)
     entry2.grid(row=1, column=idx, columnspan=1)
-    #grid
-    submit2 = tk.Button(
-        master, text="Aceitar", command=set_max, bd=3
-    )
+    # grid
+    submit2 = tk.Button(master, text="Aceitar", command=set_max, bd=3)
     submit2.grid(row=2, column=idx, columnspan=1)
 
-    idx+=1
+    idx += 1
     # valor atual
     label3 = tk.Label(master, textvariable=value)
-    label3.config(font=('helvetica', 10))
+    label3.config(font=("helvetica", 10))
     label3.grid(row=0, column=idx, columnspan=1)
     # grid
     entry3 = tk.Entry(master)
     entry3.grid(row=1, column=idx, columnspan=1)
     # grid
-    submit3 = tk.Button(
-        master, text="Aceitar", command=set_value, bd=3
-    )
+    submit3 = tk.Button(master, text="Aceitar", command=set_value, bd=3)
     submit3.grid(row=2, column=idx, columnspan=1)
 
-    idx+=1
+    idx += 1
     # gerar aleatorio/button
-    submit5 = tk.Button(
-        master, text="Leitura aleatória", command=set_random, bd=3
-    )
+    submit5 = tk.Button(master, text="Leitura aleatória", command=set_random, bd=3)
     submit5.grid(row=2, column=idx, columnspan=1)
     label5 = tk.Label(master, textvariable=random)
-    label5.config(font=('helvetica', 10))
+    label5.config(font=("helvetica", 10))
     label5.grid(row=0, column=idx, columnspan=1)
 
-    idx+=1
+    idx += 1
     # ativar
-    submit8 = tk.Button(
-        master, text="Ativar/Desativar", command=set_active, bd=3
-    )
+    submit8 = tk.Button(master, text="Ativar/Desativar", command=set_active, bd=3)
     submit8.grid(row=2, column=idx, columnspan=1)
     label8 = tk.Label(master, textvariable=active)
-    label8.config(font=('helvetica', 10))
+    label8.config(font=("helvetica", 10))
     label8.grid(row=0, column=idx, columnspan=1)
 
     # leitura atual
     label6 = tk.Label(master, textvariable=value)
-    label6.config(font=('helvetica', 20))
+    label6.config(font=("helvetica", 20))
     label6.grid(row=3, column=0, columnspan=5)
 
     # acionamentos
     label7 = tk.Label(master, textvariable=n_calls)
-    label7.config(font=('helvetica', 20))
+    label7.config(font=("helvetica", 20))
     label7.grid(row=4, column=0, columnspan=5)
-
-
 
     while True:
         update_labels()
