@@ -1,7 +1,9 @@
 import tkinter as tk
 
+
 def select_choice():
     pass
+
 
 def create_choices():
     global topics, choose
@@ -69,5 +71,7 @@ def start(cliente):
         topics = client.broker_topics
         client.update()
         master.update()
-        client.set_topics([topics[idx] for idx, _ in enumerate(choose) if choose[idx].get()])
+        client.set_topics(
+            [topics[idx] for idx, _ in enumerate(choose) if choose[idx].get()]
+        )
         set_text(create_message(cliente.buffer[-buffer_len:]))
