@@ -21,6 +21,7 @@ class Sensor:
     calls = 0
     random = None
     timer = None
+    active = None
     monitor_types = ["temperature", "humidity", "speed"]
 
     """
@@ -32,7 +33,7 @@ class Sensor:
     """
 
     def __init__(
-        self, name=None, topic_name=None, monitor=None, min_target=None, max_target=None
+        self, name=None, topic_name=None, monitor=None
     ):
         if name is None:
             name = f"Sensor:{random.randint(0,9999)}"
@@ -43,14 +44,8 @@ class Sensor:
         if monitor is None or monitor not in self.monitor_types:
             monitor = random.choice(self.monitor_types)
 
-        if min_target is None:
-            min_target = random.randint(0, 9999)
-
-        if max_target is None or max_target < min_target:
-            max_target = random.randint(min_target, min_target + 9999)
-
-        self.min_target = min_target
-        self.max_target = max_target
+        self.min_target = 0
+        self.max_target = 10
         self.monitor = monitor
         self.name = name
         self.value = 0
@@ -59,18 +54,29 @@ class Sensor:
         self.random = False
         self.timer = 1
         self.calls = 0
+        self.active = False
+
+
+    def set_min(self, val):
+        if val <= self.max_target:
+            self.min_target = val
+
+    def set_max(self, val):
+        if val >= self.min_target:
+            self.max_target = val
 
     def update(self):
-        time.sleep(self.timer)
-        if self.random:
-            self.value = random.randint(0, 9999)
+        time.sleep(0.16)
+        if self.active:
+            if self.random:
+                self.value = random.randint(self.min_target-(self.min_target*2), self.max_target + self.max_target)
 
-        message = (
-            f"Producer: {self.name}, Topic: {self.topic_name}, Value: {self.value}"
-        )
+            message = (
+                f"Producer: {self.name}, Topic: {self.topic_name}, Value: {self.value}"
+            )
 
-        if self.random >= self.max_target or self.random <= self.min_target:
-            self.calls += 1
-            self.broker.publish(self.topic_name, message)
-            print(f"Enviado: {message}")
+            if self.value >= self.max_target or self.value <= self.min_target:
+                self.calls += 1
+                self.broker.publish(self.topic_name, message)
+                print(f"Enviado: {message}")
 
