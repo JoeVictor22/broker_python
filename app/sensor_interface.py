@@ -4,6 +4,15 @@ import tkinter as tk
 master = tk.Tk()
 sensor = None
 
+buffer_len = 25
+
+def create_message(messages):
+    final_txt = ""
+
+    for message in messages:
+        final_txt += f"{message}\n"
+    return final_txt
+
 
 def start(sensor_alvo):
     global sensor
@@ -122,7 +131,16 @@ def start(sensor_alvo):
     label7.config(font=("helvetica", 20))
     label7.grid(row=4, column=0, columnspan=5)
 
+    text_box = tk.Text(master, height=buffer_len, width=100)
+    text_box.grid(row=5, column=0, columnspan=10, rowspan=2)
+
+    def set_text(message):
+        text_box.delete(1.0, "end")
+        text_box.insert("end", message)
+
+
     while True:
         update_labels()
         master.update()
         sensor.update()
+        set_text(create_message(sensor.buffer[-buffer_len:]))

@@ -3,10 +3,6 @@ from typing import List
 
 import Pyro4
 
-from app.logger import log_config
-
-logger = log_config()
-
 
 @Pyro4.expose
 class Servidor(object):
@@ -56,7 +52,6 @@ class Servidor(object):
             return ""
 
         if queue.empty():
-            print(f"empty")
             return ""
 
         message = queue.get()

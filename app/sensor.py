@@ -23,6 +23,7 @@ class Sensor:
     timer = None
     active = None
     monitor_types = ["temperature", "humidity", "speed"]
+    buffer = None
 
     """
     TODO:
@@ -53,6 +54,7 @@ class Sensor:
         self.timer = 1
         self.calls = 0
         self.active = False
+        self.buffer = list()
 
     def set_min(self, val):
         if val <= self.max_target:
@@ -78,4 +80,16 @@ class Sensor:
             if self.value >= self.max_target or self.value <= self.min_target:
                 self.calls += 1
                 self.broker.publish(self.topic_name, message)
-                print(f"Enviado: {message}")
+                self.insert_message(message)
+
+
+    def insert_message(self, message):
+        message = self.format_message(str(message))
+        self.buffer.append(message)
+
+    @staticmethod
+    def format_message(message):
+        from datetime import datetime
+
+        time = datetime.now().strftime("%H:%M:%S")
+        return f"[{time}] - {message}"
