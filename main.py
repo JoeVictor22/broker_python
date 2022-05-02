@@ -29,6 +29,7 @@ if __name__ == "__main__":
                 start(cliente)
 
             elif choice == "2":
+                from app.sensor import Sensor
 
                 print("Criando Sensor")
                 name = input("Digite o nome (vazio para gerar aleatorio)\n")
@@ -39,10 +40,11 @@ if __name__ == "__main__":
                 if topic == "":
                     topic = None
 
-                from app.sensor import Sensor
+                sensor = Sensor(name=name)
+                from app.sensor_interface import start
 
-                sensor = Sensor(name=name, topic_name=topic)
-                sensor.start()
+                start(sensor)
+
             else:
                 print("Opção invalida")
 

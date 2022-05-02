@@ -3,7 +3,6 @@ import time
 
 import Pyro4
 
-from app.logger import log_config
 from config import PYRO_URL
 
 
@@ -19,6 +18,9 @@ class Sensor:
     min_target = None
     max_target = None
 
+    calls = 0
+    random = None
+    timer = None
     monitor_types = ["temperature", "humidity", "speed"]
 
     """
@@ -51,23 +53,24 @@ class Sensor:
         self.max_target = max_target
         self.monitor = monitor
         self.name = name
-        self.value = random.randint(0, 400)
+        self.value = 0
         self.topic_name = topic_name
         self.broker = Pyro4.core.Proxy(PYRO_URL)
-        self.logger = log_config()
+        self.random = False
+        self.timer = 1
+        self.calls = 0
 
-    def start(self):
-        self.logger.info("Iniciando sensor")
-        self.create_gui()
+    def update(self):
+        time.sleep(self.timer)
+        if self.random:
+            self.value = random.randint(0, 9999)
 
-        while True:
-            time.sleep(1)
-            self.value = random.randint(0, 400)
-            message = (
-                f"Producer: {self.name}, Topic: {self.topic_name}, Value: {self.value}"
-            )
+        message = (
+            f"Producer: {self.name}, Topic: {self.topic_name}, Value: {self.value}"
+        )
+
+        if self.random >= self.max_target or self.random <= self.min_target:
+            self.calls += 1
             self.broker.publish(self.topic_name, message)
             print(f"Enviado: {message}")
 
-    def create_gui(self):
-        self.logger.info("Iniciando interface")

@@ -14,13 +14,6 @@ class Client:
     topics = None
     broker_topics = None
     buffer = None
-    """
-    TODO:
-    trabalhar com lista de topicos ao inves de topico fixo
-    listar topicos
-    assinar mais de um topico
-    mostrar quais  mensagens chegaram
-    """
 
     def __init__(self, name=None):
         if name is None:
@@ -47,7 +40,6 @@ class Client:
                 self.insert_message(message)
 
     def insert_message(self, message):
-        # print(f"{message}")
         message = self.format_message(str(message))
         self.buffer.append(message)
 
