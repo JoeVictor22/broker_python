@@ -41,7 +41,7 @@ class Client:
         for topic in self.topics:
             message = self.broker.subscribe(topic)
             if message and message != "":
-                message = f"{topic} - {message}"
+                message = f"[{topic}] - {message}"
                 self.insert_message(message)
 
     def insert_message(self, message):
@@ -50,7 +50,8 @@ class Client:
 
     @staticmethod
     def format_message(message):
-        from datetime import datetime
-
-        time = datetime.now().strftime("%H:%M:%S")
+        import time
+        # from datetime import datetime
+        # time = datetime.now().strftime("%H:%M:%S")
+        time = time.time()
         return f"[{time}] - {message}"

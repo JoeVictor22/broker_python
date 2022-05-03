@@ -30,7 +30,7 @@ class Servidor(object):
             self.create_topic(topic_name)
 
         queue = self._get_topic(topic_name)
-        queue.put(message)
+        queue.put(formated_msg)
         print(f"[Published] {formated_msg}")
 
         return True
@@ -46,7 +46,7 @@ class Servidor(object):
             return ""
 
         message = queue.get()
-        print(f"[Subscribe] {topic_name} - {message}")
+        print(f"[Subscribe] [{topic_name}] - {message}")
 
         return message
 

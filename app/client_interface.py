@@ -59,7 +59,7 @@ def start(cliente):
     )
     button_reset.grid(row=OPTIONS_ROW, column=0, columnspan=1)
 
-    text_box = tk.Text(master, height=50, width=100)
+    text_box = tk.Text(master, height=50, width=120)
     text_box.grid(row=0, column=0, columnspan=TEXT_COL, rowspan=OPTIONS_ROW)
 
     def set_text(message):
