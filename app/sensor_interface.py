@@ -141,10 +141,11 @@ def start(sensor_alvo):
     label9.config(font=("helvetica", 20))
     label9.grid(row=5, column=2, columnspan=2)
 
-    label10 = tk.Label(master, text=f"Parameter: {sensor.monitor_types[sensor.monitor]}")
+    label10 = tk.Label(
+        master, text=f"Parameter: {sensor.monitor_types[sensor.monitor]}"
+    )
     label10.config(font=("helvetica", 20))
     label10.grid(row=5, column=4, columnspan=2)
-
 
     text_box = tk.Text(master, height=buffer_len, width=100)
     text_box.grid(row=6, column=0, columnspan=10, rowspan=2)

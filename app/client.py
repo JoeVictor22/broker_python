@@ -6,6 +6,7 @@ from config import PYRO_URL
 
 import time
 
+
 class Client:
     broker = None
 
