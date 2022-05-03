@@ -53,10 +53,9 @@ def start(cliente):
     global client, topics, buffer
     client = cliente
     topics = client.broker_topics
-    create_choices()
 
     button_reset = tk.Button(
-        master, text="Limpar tópicos", command=create_choices, bd=3
+        master, text="Resetar tópicos", command=create_choices, bd=3
     )
     button_reset.grid(row=OPTIONS_ROW, column=0, columnspan=1)
 

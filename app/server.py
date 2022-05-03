@@ -6,14 +6,6 @@ import Pyro4
 
 @Pyro4.expose
 class Servidor(object):
-    """
-
-    topics structure:
-    {
-        "key": list()
-    }
-    """
-
     topics = {}
 
     def _get_topic(self, topic_name) -> Queue:
@@ -54,7 +46,7 @@ class Servidor(object):
             return ""
 
         message = queue.get()
-        print(f"[Subscribe] {message}")
+        print(f"[Subscribe] {topic_name} - {message}")
 
         return message
 

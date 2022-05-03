@@ -132,8 +132,22 @@ def start(sensor_alvo):
     label7.config(font=("helvetica", 20))
     label7.grid(row=4, column=0, columnspan=5)
 
+    # info
+    label8 = tk.Label(master, text=f"Name: {sensor.name}")
+    label8.config(font=("helvetica", 20))
+    label8.grid(row=5, column=0, columnspan=2)
+
+    label9 = tk.Label(master, text=f"Topic: {sensor.topic_name}")
+    label9.config(font=("helvetica", 20))
+    label9.grid(row=5, column=2, columnspan=2)
+
+    label10 = tk.Label(master, text=f"Parameter: {sensor.monitor_types[sensor.monitor]}")
+    label10.config(font=("helvetica", 20))
+    label10.grid(row=5, column=4, columnspan=2)
+
+
     text_box = tk.Text(master, height=buffer_len, width=100)
-    text_box.grid(row=5, column=0, columnspan=10, rowspan=2)
+    text_box.grid(row=6, column=0, columnspan=10, rowspan=2)
 
     def set_text(message):
         text_box.delete(1.0, "end")

@@ -28,10 +28,10 @@ class Sensor:
 
     def __init__(self, name=None, topic_name=None, monitor=None):
         if name is None:
-            name = f"Sensor:{random.randint(1000,9999)}"
+            name = f"sensor_{random.randint(1000,9999)}"
 
         if topic_name is None:
-            topic_name = "default"
+            topic_name = f"topic_{random.randint(1000,9999)}"
 
         if monitor is None or monitor > len(self.monitor_types):
             monitor = random.randint(1, 3)
