@@ -86,6 +86,7 @@ class Sensor:
     @staticmethod
     def format_message(message):
         import time
+
         # from datetime import datetime
         # time = datetime.now().strftime("%H:%M:%S")
         time = time.time()
