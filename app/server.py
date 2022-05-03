@@ -28,10 +28,10 @@ class Servidor(object):
             return False
 
         self.topics[topic_name] = Queue()
-        print(f"criou {topic_name}")
+        print(f"[New topic] {topic_name}")
         return True
 
-    def publish(self, topic_name, message) -> bool:
+    def publish(self, topic_name, message, formated_msg) -> bool:
         queue = self._get_topic(topic_name)
 
         if not queue:
@@ -39,7 +39,7 @@ class Servidor(object):
 
         queue = self._get_topic(topic_name)
         queue.put(message)
-        print(f"message {message}")
+        print(f"[Published] {formated_msg}")
 
         return True
 
@@ -48,14 +48,13 @@ class Servidor(object):
 
         if not queue:
             self.create_topic(topic_name)
-            print(f"create subs")
             return ""
 
         if queue.empty():
             return ""
 
         message = queue.get()
-        print(f"get {message}")
+        print(f"[Subscribe] {message}")
 
         return message
 
@@ -70,4 +69,4 @@ def start_server():
         ns=False,
         verbose=True,
     )
-    print(f"Ready to listen")
+    print(f"[Server started]")

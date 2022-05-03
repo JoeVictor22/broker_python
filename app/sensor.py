@@ -22,16 +22,9 @@ class Sensor:
     random = None
     timer = None
     active = None
-    monitor_types = ["temperature", "humidity", "speed"]
+    monitor_types = ["Temperatura", "Umidade", "Velocidade"]
     buffer = None
-
-    """
-    TODO:
-    deve monitorar (temperatura, umidade ou velocidade) # select
-    deve modificar valor atual da leitura # input
-    deve ser possivel minimo e máximo qlqr hora # input
-    ao atingir valor deve se enviar # mostrar valor atual
-    """
+    counter = None
 
     def __init__(self, name=None, topic_name=None, monitor=None):
         if name is None:
@@ -55,6 +48,7 @@ class Sensor:
         self.calls = 0
         self.active = False
         self.buffer = list()
+        self.counter = time.time()
 
     def set_min(self, val):
         if val <= self.max_target:
@@ -65,7 +59,10 @@ class Sensor:
             self.max_target = val
 
     def update(self):
-        time.sleep(0.16)
+        now = time.time()
+        if now - self.counter < 0.16:
+            return
+
         if self.active:
             if self.random:
                 self.value = random.randint(
@@ -77,8 +74,10 @@ class Sensor:
 
             if self.value >= self.max_target or self.value <= self.min_target:
                 self.calls += 1
-                self.broker.publish(self.topic_name, message)
+                self.broker.publish(self.topic_name, self.value, message)
                 self.insert_message(message)
+
+        self.counter = time.time()
 
     def insert_message(self, message):
         message = self.format_message(str(message))

@@ -4,6 +4,7 @@ import Pyro4
 
 from config import PYRO_URL
 
+import time
 
 class Client:
     broker = None
@@ -12,6 +13,7 @@ class Client:
     topics = None
     broker_topics = None
     buffer = None
+    counter = None
 
     def __init__(self, name=None):
         if name is None:
@@ -24,11 +26,16 @@ class Client:
         self.value = random.randint(0, 400)
         self.broker = Pyro4.core.Proxy(PYRO_URL)
         self.broker_topics = list()
+        self.counter = time.time()
 
     def set_topics(self, new_topics):
         self.topics = new_topics
 
     def update(self):
+        now = time.time()
+        if now - self.counter < 0.16:
+            return
+
         self.broker_topics = self.broker.get_topics()
         for topic in self.topics:
             message = self.broker.subscribe(topic)

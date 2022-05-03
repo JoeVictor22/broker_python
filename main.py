@@ -16,12 +16,9 @@ if __name__ == "__main__":
 
                 print("Criando Cliente")
                 name = input("Digite o nome (vazio para gerar aleatorio)\n")
-                topic = input("Digite o tópico (vazio para gerar aleatorio)\n")
 
                 if name == "":
                     name = None
-                if topic == "":
-                    topic = None
 
                 cliente = Client(name=name)
                 from app.client_interface import start
